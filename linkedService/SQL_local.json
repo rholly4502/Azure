@@ -1,0 +1,21 @@
+{
+	"name": "SQL_local",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "SqlServer",
+		"typeProperties": {
+			"server": "Rapid-Teknologi",
+			"database": "AdventureWorks2022",
+			"encrypt": "mandatory",
+			"trustServerCertificate": true,
+			"authenticationType": "SQL",
+			"userName": "sa",
+			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiI4NmFlNzY4NC05ZTAyLTQ0NTUtOTUxNC1kNDZiZDc1NjA2YjEiLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
+		},
+		"connectVia": {
+			"referenceName": "localrholly",
+			"type": "IntegrationRuntimeReference"
+		}
+	}
+}
