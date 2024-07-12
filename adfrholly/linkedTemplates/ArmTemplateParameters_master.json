@@ -1,0 +1,57 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"value": "adfrholly"
+		},
+		"ADLS_rholly_accountKey": {
+			"value": ""
+		},
+		"AzureSqlDatabase1_password": {
+			"value": ""
+		},
+		"SQL_local_password": {
+			"value": ""
+		},
+		"SQL_rholly_password": {
+			"value": ""
+		},
+		"ADLS_rholly_properties_typeProperties_url": {
+			"value": "https://storageaccrholly.dfs.core.windows.net/"
+		},
+		"AzureSqlDatabase1_properties_typeProperties_server": {
+			"value": "rhollyserver.database.windows.net"
+		},
+		"AzureSqlDatabase1_properties_typeProperties_database": {
+			"value": "data"
+		},
+		"AzureSqlDatabase1_properties_typeProperties_userName": {
+			"value": "adminrholly"
+		},
+		"SQL_local_properties_typeProperties_server": {
+			"value": "Rapid-Teknologi"
+		},
+		"SQL_local_properties_typeProperties_database": {
+			"value": "AdventureWorks2022"
+		},
+		"SQL_local_properties_typeProperties_userName": {
+			"value": "sa"
+		},
+		"SQL_rholly_properties_typeProperties_server": {
+			"value": "rhollyserver.database.windows.net"
+		},
+		"SQL_rholly_properties_typeProperties_database": {
+			"value": "data"
+		},
+		"SQL_rholly_properties_typeProperties_userName": {
+			"value": "adminrholly"
+		},
+		"containerUri": {
+			"value": ""
+		},
+		"containerSasToken": {
+			"value": ""
+		}
+	}
+}
