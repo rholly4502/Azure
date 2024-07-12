@@ -1,0 +1,9 @@
+{
+	"name": "adfrholly",
+	"location": "southeastasia",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "7492c809-705f-43df-9ddb-808410615344",
+		"tenantId": "e522de87-3b5f-4914-b700-3ee0ac8e7497"
+	}
+}
