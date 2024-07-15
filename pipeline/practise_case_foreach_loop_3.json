@@ -16,7 +16,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"items": {
-						"value": "@split(replace(activity('list_json_file').output.firstRow.concatenated_files, '\\', ''), ',')",
+						"value": "@activity('Lookup1').output",
 						"type": "Expression"
 					},
 					"activities": [
