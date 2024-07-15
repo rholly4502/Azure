@@ -2,7 +2,7 @@
 	"name": "JSON_ADLS_rholly",
 	"properties": {
 		"linkedServiceName": {
-			"referenceName": "ADLS_rholly_json",
+			"referenceName": "ADLS_rholly",
 			"type": "LinkedServiceReference"
 		},
 		"parameters": {
