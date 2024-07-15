@@ -1,0 +1,35 @@
+{
+	"name": "TR_document_ingestion",
+	"properties": {
+		"annotations": [],
+		"runtimeState": "Stopped",
+		"pipelines": [
+			{
+				"pipelineReference": {
+					"referenceName": "practise_case_foreach_loop_3",
+					"type": "PipelineReference"
+				}
+			}
+		],
+		"type": "ScheduleTrigger",
+		"typeProperties": {
+			"recurrence": {
+				"frequency": "Day",
+				"interval": 1,
+				"startTime": "2024-07-15T08:06:00",
+				"timeZone": "SE Asia Standard Time",
+				"schedule": {
+					"minutes": [
+						0,
+						13
+					],
+					"hours": [
+						9,
+						13,
+						15
+					]
+				}
+			}
+		}
+	}
+}

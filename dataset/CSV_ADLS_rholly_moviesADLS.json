@@ -5,6 +5,9 @@
 			"referenceName": "ADLS_rholly",
 			"type": "LinkedServiceReference"
 		},
+		"folder": {
+			"name": "ADLS/Day 3"
+		},
 		"annotations": [],
 		"type": "DelimitedText",
 		"typeProperties": {

@@ -1,5 +1,5 @@
 {
-	"name": "practise_case_dataflow_1",
+	"name": "practise_case_SP",
 	"properties": {
 		"activities": [
 			{
@@ -239,8 +239,8 @@
 				]
 			},
 			{
-				"name": "SCD Type 1",
-				"type": "Copy",
+				"name": "SCD_Type_1_Customer",
+				"type": "SqlServerStoredProcedure",
 				"dependsOn": [
 					{
 						"activity": "Insert CSV to SQL",
@@ -258,68 +258,12 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
-					"source": {
-						"type": "SqlServerSource",
-						"additionalColumns": [
-							{
-								"name": "InsertedDate",
-								"value": {
-									"value": "@utcNow()",
-									"type": "Expression"
-								}
-							},
-							{
-								"name": "ModifiedDate",
-								"value": {
-									"value": "@utcNow()",
-									"type": "Expression"
-								}
-							}
-						],
-						"queryTimeout": "02:00:00",
-						"partitionOption": "None"
-					},
-					"sink": {
-						"type": "SqlServerSink",
-						"writeBehavior": "upsert",
-						"upsertSettings": {
-							"useTempDB": true,
-							"keys": [
-								"CustomerID"
-							]
-						},
-						"sqlWriterUseTableLock": false
-					},
-					"enableStaging": false,
-					"translator": {
-						"type": "TabularTranslator",
-						"typeConversion": true,
-						"typeConversionSettings": {
-							"allowDataTruncation": true,
-							"treatBooleanAsNumber": false
-						}
-					}
+					"storedProcedureName": "[dbo].[SCD_Type_1_Customer]"
 				},
-				"inputs": [
-					{
-						"referenceName": "SQL_rholly",
-						"type": "DatasetReference",
-						"parameters": {
-							"schema_name": "dbo",
-							"table_name": "CustomerSource"
-						}
-					}
-				],
-				"outputs": [
-					{
-						"referenceName": "SQL_rholly",
-						"type": "DatasetReference",
-						"parameters": {
-							"schema_name": "dbo",
-							"table_name": "DimCustomer"
-						}
-					}
-				]
+				"linkedServiceName": {
+					"referenceName": "SQL_rholly",
+					"type": "LinkedServiceReference"
+				}
 			}
 		],
 		"folder": {

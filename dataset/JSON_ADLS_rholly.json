@@ -1,5 +1,5 @@
 {
-	"name": "BINARY_ADLS_Rholly",
+	"name": "JSON_ADLS_rholly",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "ADLS_rholly",
@@ -17,10 +17,10 @@
 			}
 		},
 		"folder": {
-			"name": "ADLS/Day 3"
+			"name": "JSON"
 		},
 		"annotations": [],
-		"type": "Binary",
+		"type": "Json",
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
@@ -37,6 +37,7 @@
 					"type": "Expression"
 				}
 			}
-		}
+		},
+		"schema": {}
 	}
 }

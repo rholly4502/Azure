@@ -5,6 +5,9 @@
 			"referenceName": "HTTP_solliancepublicdata_Customer",
 			"type": "LinkedServiceReference"
 		},
+		"folder": {
+			"name": "ADLS/Day 3"
+		},
 		"annotations": [],
 		"type": "Binary",
 		"typeProperties": {
