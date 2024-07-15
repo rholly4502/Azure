@@ -16,7 +16,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"items": {
-						"value": "@activity('Lookup1').output",
+						"value": "@split(replace(activity('list_json_file').output.firstRow.concatenated_files, '\\', ''), ',')",
 						"type": "Expression"
 					},
 					"activities": [
@@ -104,7 +104,7 @@
 							},
 							"userProperties": [],
 							"linkedServiceName": {
-								"referenceName": "SQLhanif",
+								"referenceName": "SQL_rholly",
 								"type": "LinkedServiceReference"
 							},
 							"typeProperties": {
@@ -168,7 +168,7 @@
 				"typeProperties": {
 					"source": {
 						"type": "SqlServerSource",
-						"sqlReaderQuery": "SELECT \n    STRING_AGG(file_name,',') AS concatenated_files\nFROM list_json_file;",
+						"sqlReaderQuery": "SELECT \n    STRING_AGG(file_name,',') AS concatenated_files\nFROM list_json;",
 						"queryTimeout": "02:00:00",
 						"partitionOption": "None"
 					},
@@ -202,10 +202,10 @@
 					"variableName": "pipelineReturnValue",
 					"value": [
 						{
-							"key": "file_name",
+							"key": "File_name",
 							"value": {
 								"type": "Expression",
-								"content": "@activity('Lookup1').output"
+								"content": "@split(replace(activity('list_json_file').output.firstRow.concatenated_files, '\\', ''), ',')"
 							}
 						}
 					],
