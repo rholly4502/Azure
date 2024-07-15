@@ -3,7 +3,7 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "Copy data1",
+				"name": "HTTP to ADLS",
 				"type": "Copy",
 				"dependsOn": [],
 				"policy": {
@@ -42,7 +42,12 @@
 				"outputs": [
 					{
 						"referenceName": "BINARY_ADLS_Rholly",
-						"type": "DatasetReference"
+						"type": "DatasetReference",
+						"parameters": {
+							"container_name": "test",
+							"folder_name": "data",
+							"file_name": "CustomerService.csv"
+						}
 					}
 				]
 			}
