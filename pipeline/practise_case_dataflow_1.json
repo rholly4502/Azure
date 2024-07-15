@@ -42,10 +42,7 @@
 				"outputs": [
 					{
 						"referenceName": "BINARY_ADLS_Rholly",
-						"type": "DatasetReference",
-						"parameters": {
-							"container_name": "test"
-						}
+						"type": "DatasetReference"
 					}
 				]
 			}
