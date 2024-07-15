@@ -136,7 +136,7 @@
 				}
 			},
 			{
-				"name": "Lookup1",
+				"name": "list_json_file",
 				"type": "Lookup",
 				"dependsOn": [],
 				"policy": {
@@ -169,7 +169,7 @@
 				"type": "SetVariable",
 				"dependsOn": [
 					{
-						"activity": "Lookup1",
+						"activity": "list_json_file",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -187,7 +187,7 @@
 							"key": "file_name",
 							"value": {
 								"type": "Expression",
-								"content": "@activity('Lookup1').output"
+								"content": "@split(replace(activity('list_json_file').output.firstRow.concatenated_files, '\\', ''), ',')"
 							}
 						}
 					],
