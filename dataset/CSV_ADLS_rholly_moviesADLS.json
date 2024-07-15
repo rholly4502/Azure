@@ -6,7 +6,7 @@
 			"type": "LinkedServiceReference"
 		},
 		"folder": {
-			"name": "Day 3"
+			"name": "ADLS/Day 3"
 		},
 		"annotations": [],
 		"type": "DelimitedText",
