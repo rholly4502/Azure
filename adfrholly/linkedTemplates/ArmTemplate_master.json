@@ -11,6 +11,10 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'accountKey' of 'ADLS_rholly'"
 		},
+		"ADLS_rholly_json_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'ADLS_rholly_json'"
+		},
 		"AzureSqlDatabase1_password": {
 			"type": "secureString",
 			"metadata": "Secure string for 'password' of 'AzureSqlDatabase1'"
@@ -23,9 +27,17 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'password' of 'SQL_rholly'"
 		},
+		"SQLhanif_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'SQLhanif'"
+		},
 		"ADLS_rholly_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://storageaccrholly.dfs.core.windows.net/"
+		},
+		"ADLS_rholly_json_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://hanifstorageaccount.dfs.core.windows.net/"
 		},
 		"AzureSqlDatabase1_properties_typeProperties_server": {
 			"type": "string",
@@ -38,6 +50,10 @@
 		"AzureSqlDatabase1_properties_typeProperties_userName": {
 			"type": "string",
 			"defaultValue": "adminrholly"
+		},
+		"HTTP_solliancepublicdata_Customer_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://solliancepublicdata.blob.core.windows.net/dataengineering/dp-203/awdata/CustomerSource.csv"
 		},
 		"SQL_local_properties_typeProperties_server": {
 			"type": "string",
@@ -62,6 +78,18 @@
 		"SQL_rholly_properties_typeProperties_userName": {
 			"type": "string",
 			"defaultValue": "adminrholly"
+		},
+		"SQLhanif_properties_typeProperties_server": {
+			"type": "string",
+			"defaultValue": "mhaniffajari.database.windows.net"
+		},
+		"SQLhanif_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "data"
+		},
+		"SQLhanif_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "admin_sa"
 		},
 		"containerUri": {
 			"type": "string",
@@ -93,17 +121,26 @@
 					"ADLS_rholly_accountKey": {
 						"value": "[parameters('ADLS_rholly_accountKey')]"
 					},
+					"ADLS_rholly_json_accountKey": {
+						"value": "[parameters('ADLS_rholly_json_accountKey')]"
+					},
 					"AzureSqlDatabase1_password": {
 						"value": "[parameters('AzureSqlDatabase1_password')]"
 					},
 					"SQL_rholly_password": {
 						"value": "[parameters('SQL_rholly_password')]"
 					},
+					"SQLhanif_password": {
+						"value": "[parameters('SQLhanif_password')]"
+					},
 					"SQL_local_password": {
 						"value": "[parameters('SQL_local_password')]"
 					},
 					"ADLS_rholly_properties_typeProperties_url": {
 						"value": "[parameters('ADLS_rholly_properties_typeProperties_url')]"
+					},
+					"ADLS_rholly_json_properties_typeProperties_url": {
+						"value": "[parameters('ADLS_rholly_json_properties_typeProperties_url')]"
 					},
 					"AzureSqlDatabase1_properties_typeProperties_server": {
 						"value": "[parameters('AzureSqlDatabase1_properties_typeProperties_server')]"
@@ -114,6 +151,9 @@
 					"AzureSqlDatabase1_properties_typeProperties_userName": {
 						"value": "[parameters('AzureSqlDatabase1_properties_typeProperties_userName')]"
 					},
+					"HTTP_solliancepublicdata_Customer_properties_typeProperties_url": {
+						"value": "[parameters('HTTP_solliancepublicdata_Customer_properties_typeProperties_url')]"
+					},
 					"SQL_rholly_properties_typeProperties_server": {
 						"value": "[parameters('SQL_rholly_properties_typeProperties_server')]"
 					},
@@ -122,6 +162,15 @@
 					},
 					"SQL_rholly_properties_typeProperties_userName": {
 						"value": "[parameters('SQL_rholly_properties_typeProperties_userName')]"
+					},
+					"SQLhanif_properties_typeProperties_server": {
+						"value": "[parameters('SQLhanif_properties_typeProperties_server')]"
+					},
+					"SQLhanif_properties_typeProperties_database": {
+						"value": "[parameters('SQLhanif_properties_typeProperties_database')]"
+					},
+					"SQLhanif_properties_typeProperties_userName": {
+						"value": "[parameters('SQLhanif_properties_typeProperties_userName')]"
 					},
 					"SQL_local_properties_typeProperties_server": {
 						"value": "[parameters('SQL_local_properties_typeProperties_server')]"
@@ -135,6 +184,26 @@
 				}
 			},
 			"dependsOn": []
+		},
+		{
+			"name": "adfrholly_ArmTemplate_1",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2018-02-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_1.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					}
+				}
+			},
+			"dependsOn": [
+				"[resourceId('Microsoft.Resources/deployments', 'adfrholly_ArmTemplate_0')]"
+			]
 		}
 	]
 }

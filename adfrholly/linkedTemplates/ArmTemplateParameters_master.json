@@ -8,6 +8,9 @@
 		"ADLS_rholly_accountKey": {
 			"value": ""
 		},
+		"ADLS_rholly_json_accountKey": {
+			"value": ""
+		},
 		"AzureSqlDatabase1_password": {
 			"value": ""
 		},
@@ -17,8 +20,14 @@
 		"SQL_rholly_password": {
 			"value": ""
 		},
+		"SQLhanif_password": {
+			"value": ""
+		},
 		"ADLS_rholly_properties_typeProperties_url": {
 			"value": "https://storageaccrholly.dfs.core.windows.net/"
+		},
+		"ADLS_rholly_json_properties_typeProperties_url": {
+			"value": "https://hanifstorageaccount.dfs.core.windows.net/"
 		},
 		"AzureSqlDatabase1_properties_typeProperties_server": {
 			"value": "rhollyserver.database.windows.net"
@@ -28,6 +37,9 @@
 		},
 		"AzureSqlDatabase1_properties_typeProperties_userName": {
 			"value": "adminrholly"
+		},
+		"HTTP_solliancepublicdata_Customer_properties_typeProperties_url": {
+			"value": "https://solliancepublicdata.blob.core.windows.net/dataengineering/dp-203/awdata/CustomerSource.csv"
 		},
 		"SQL_local_properties_typeProperties_server": {
 			"value": "Rapid-Teknologi"
@@ -46,6 +58,15 @@
 		},
 		"SQL_rholly_properties_typeProperties_userName": {
 			"value": "adminrholly"
+		},
+		"SQLhanif_properties_typeProperties_server": {
+			"value": "mhaniffajari.database.windows.net"
+		},
+		"SQLhanif_properties_typeProperties_database": {
+			"value": "data"
+		},
+		"SQLhanif_properties_typeProperties_userName": {
+			"value": "admin_sa"
 		},
 		"containerUri": {
 			"value": ""
