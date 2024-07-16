@@ -101,7 +101,7 @@
 									{
 										"type": "Query",
 										"text": {
-											"value": "@concat('INSERT INTO dbo.list_image (image_name, url_name) VALUES (''', item(), ''', ''https://hanifstorageaccount.blob.core.windows.net/hanifcontainers/image/', item(), ''')')",
+											"value": "@concat('INSERT INTO dbo.list_image (image_name, url_name) VALUES (''', item(), ''', ''https://hanifstorageaccount.blob.core.windows.net/hanifcontainers/image/', item(),'.png', ''')')",
 											"type": "Expression"
 										}
 									}
