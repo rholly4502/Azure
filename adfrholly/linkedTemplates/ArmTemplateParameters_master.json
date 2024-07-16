@@ -23,6 +23,18 @@
 		"SQLhanif_password": {
 			"value": ""
 		},
+		"MYSQL_Practise_day4_password": {
+			"value": ""
+		},
+		"GoogleCloudStorage_Day5_secretAccessKey": {
+			"value": ""
+		},
+		"SQL_hanifajari_password": {
+			"value": ""
+		},
+		"Postgre_day5_password": {
+			"value": ""
+		},
 		"ADLS_rholly_properties_typeProperties_url": {
 			"value": "https://storageaccrholly.dfs.core.windows.net/"
 		},
@@ -67,6 +79,36 @@
 		},
 		"SQLhanif_properties_typeProperties_userName": {
 			"value": "admin_sa"
+		},
+		"MYSQL_Practise_day4_properties_typeProperties_server": {
+			"value": "34.34.222.232"
+		},
+		"MYSQL_Practise_day4_properties_typeProperties_database": {
+			"value": "data"
+		},
+		"MYSQL_Practise_day4_properties_typeProperties_username": {
+			"value": "admin"
+		},
+		"GoogleCloudStorage_Day5_properties_typeProperties_accessKeyId": {
+			"value": "GOOGJUP6CZDUHBLCN3JUECIC"
+		},
+		"SQL_hanifajari_properties_typeProperties_server": {
+			"value": "hanifajari.database.windows.net"
+		},
+		"SQL_hanifajari_properties_typeProperties_database": {
+			"value": "Data"
+		},
+		"SQL_hanifajari_properties_typeProperties_userName": {
+			"value": "admin_sa"
+		},
+		"Postgre_day5_properties_typeProperties_server": {
+			"value": "34.31.255.191"
+		},
+		"Postgre_day5_properties_typeProperties_database": {
+			"value": "postgres"
+		},
+		"Postgre_day5_properties_typeProperties_username": {
+			"value": "postgres"
 		},
 		"containerUri": {
 			"value": ""

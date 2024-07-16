@@ -31,6 +31,22 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'password' of 'SQLhanif'"
 		},
+		"MYSQL_Practise_day4_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'MYSQL_Practise_day4'"
+		},
+		"GoogleCloudStorage_Day5_secretAccessKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'secretAccessKey' of 'GoogleCloudStorage_Day5'"
+		},
+		"SQL_hanifajari_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'SQL_hanifajari'"
+		},
+		"Postgre_day5_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'Postgre_day5'"
+		},
 		"ADLS_rholly_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://storageaccrholly.dfs.core.windows.net/"
@@ -91,6 +107,46 @@
 			"type": "string",
 			"defaultValue": "admin_sa"
 		},
+		"MYSQL_Practise_day4_properties_typeProperties_server": {
+			"type": "string",
+			"defaultValue": "34.34.222.232"
+		},
+		"MYSQL_Practise_day4_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "data"
+		},
+		"MYSQL_Practise_day4_properties_typeProperties_username": {
+			"type": "string",
+			"defaultValue": "admin"
+		},
+		"GoogleCloudStorage_Day5_properties_typeProperties_accessKeyId": {
+			"type": "string",
+			"defaultValue": "GOOGJUP6CZDUHBLCN3JUECIC"
+		},
+		"SQL_hanifajari_properties_typeProperties_server": {
+			"type": "string",
+			"defaultValue": "hanifajari.database.windows.net"
+		},
+		"SQL_hanifajari_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "Data"
+		},
+		"SQL_hanifajari_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "admin_sa"
+		},
+		"Postgre_day5_properties_typeProperties_server": {
+			"type": "string",
+			"defaultValue": "34.31.255.191"
+		},
+		"Postgre_day5_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "postgres"
+		},
+		"Postgre_day5_properties_typeProperties_username": {
+			"type": "string",
+			"defaultValue": "postgres"
+		},
 		"containerUri": {
 			"type": "string",
 			"metadata": "URI to storage account containing linked ARM templates"
@@ -133,6 +189,18 @@
 					"SQLhanif_password": {
 						"value": "[parameters('SQLhanif_password')]"
 					},
+					"MYSQL_Practise_day4_password": {
+						"value": "[parameters('MYSQL_Practise_day4_password')]"
+					},
+					"GoogleCloudStorage_Day5_secretAccessKey": {
+						"value": "[parameters('GoogleCloudStorage_Day5_secretAccessKey')]"
+					},
+					"SQL_hanifajari_password": {
+						"value": "[parameters('SQL_hanifajari_password')]"
+					},
+					"Postgre_day5_password": {
+						"value": "[parameters('Postgre_day5_password')]"
+					},
 					"SQL_local_password": {
 						"value": "[parameters('SQL_local_password')]"
 					},
@@ -172,6 +240,36 @@
 					"SQLhanif_properties_typeProperties_userName": {
 						"value": "[parameters('SQLhanif_properties_typeProperties_userName')]"
 					},
+					"MYSQL_Practise_day4_properties_typeProperties_server": {
+						"value": "[parameters('MYSQL_Practise_day4_properties_typeProperties_server')]"
+					},
+					"MYSQL_Practise_day4_properties_typeProperties_database": {
+						"value": "[parameters('MYSQL_Practise_day4_properties_typeProperties_database')]"
+					},
+					"MYSQL_Practise_day4_properties_typeProperties_username": {
+						"value": "[parameters('MYSQL_Practise_day4_properties_typeProperties_username')]"
+					},
+					"GoogleCloudStorage_Day5_properties_typeProperties_accessKeyId": {
+						"value": "[parameters('GoogleCloudStorage_Day5_properties_typeProperties_accessKeyId')]"
+					},
+					"SQL_hanifajari_properties_typeProperties_server": {
+						"value": "[parameters('SQL_hanifajari_properties_typeProperties_server')]"
+					},
+					"SQL_hanifajari_properties_typeProperties_database": {
+						"value": "[parameters('SQL_hanifajari_properties_typeProperties_database')]"
+					},
+					"SQL_hanifajari_properties_typeProperties_userName": {
+						"value": "[parameters('SQL_hanifajari_properties_typeProperties_userName')]"
+					},
+					"Postgre_day5_properties_typeProperties_server": {
+						"value": "[parameters('Postgre_day5_properties_typeProperties_server')]"
+					},
+					"Postgre_day5_properties_typeProperties_database": {
+						"value": "[parameters('Postgre_day5_properties_typeProperties_database')]"
+					},
+					"Postgre_day5_properties_typeProperties_username": {
+						"value": "[parameters('Postgre_day5_properties_typeProperties_username')]"
+					},
 					"SQL_local_properties_typeProperties_server": {
 						"value": "[parameters('SQL_local_properties_typeProperties_server')]"
 					},
@@ -203,6 +301,26 @@
 			},
 			"dependsOn": [
 				"[resourceId('Microsoft.Resources/deployments', 'adfrholly_ArmTemplate_0')]"
+			]
+		},
+		{
+			"name": "adfrholly_ArmTemplate_2",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2018-02-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_2.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					}
+				}
+			},
+			"dependsOn": [
+				"[resourceId('Microsoft.Resources/deployments', 'adfrholly_ArmTemplate_1')]"
 			]
 		}
 	]
