@@ -1,5 +1,5 @@
 {
-	"name": "SqlServerTable1",
+	"name": "Binary_SQL_Haniffajari",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "SQL_hanifajari",
