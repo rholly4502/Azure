@@ -1,6 +1,654 @@
 {
 	"name": "chalange_2_day5",
 	"properties": {
+		"activities": [
+			{
+				"name": "ADLS_Application",
+				"type": "Copy",
+				"state": "Inactive",
+				"onInactiveMarkAs": "Succeeded",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "PostgreSqlV2Source"
+					},
+					"sink": {
+						"type": "DelimitedTextSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".txt"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "Postgre_day5",
+						"type": "DatasetReference",
+						"parameters": {
+							"schema_name": "public",
+							"table_name": "application"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "CSV_ADLS_rholly",
+						"type": "DatasetReference",
+						"parameters": {
+							"container_name": "test",
+							"folder_name": "@concat('data/day5_2/',formatDateTime(utcnow(), 'yyyy_MM_dd'))",
+							"file_name": "application.csv",
+							"delimiter_name": ";",
+							"row_as_header": true
+						}
+					}
+				]
+			},
+			{
+				"name": "ADLS_previous_app",
+				"type": "Copy",
+				"state": "Inactive",
+				"onInactiveMarkAs": "Succeeded",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "PostgreSqlV2Source"
+					},
+					"sink": {
+						"type": "DelimitedTextSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".txt"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "Postgre_day5",
+						"type": "DatasetReference",
+						"parameters": {
+							"schema_name": "public",
+							"table_name": "previous_application"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "CSV_ADLS_rholly",
+						"type": "DatasetReference",
+						"parameters": {
+							"container_name": "test",
+							"folder_name": "@concat('data/day5_2/',formatDateTime(utcnow(), 'yyyy_MM_dd'))",
+							"file_name": "previous_application.csv",
+							"delimiter_name": ";",
+							"row_as_header": true
+						}
+					}
+				]
+			},
+			{
+				"name": "ADLS_Bureau",
+				"type": "Copy",
+				"state": "Inactive",
+				"onInactiveMarkAs": "Succeeded",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "PostgreSqlV2Source"
+					},
+					"sink": {
+						"type": "DelimitedTextSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".txt"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "Postgre_day5",
+						"type": "DatasetReference",
+						"parameters": {
+							"schema_name": "public",
+							"table_name": "bureau"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "CSV_ADLS_rholly",
+						"type": "DatasetReference",
+						"parameters": {
+							"container_name": "test",
+							"folder_name": "@concat('data/day5_2/',formatDateTime(utcnow(), 'yyyy_MM_dd'))",
+							"file_name": "bureau.csv",
+							"delimiter_name": ";",
+							"row_as_header": true
+						}
+					}
+				]
+			},
+			{
+				"name": "ADLS_Installment",
+				"type": "Copy",
+				"state": "Inactive",
+				"onInactiveMarkAs": "Succeeded",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "PostgreSqlV2Source"
+					},
+					"sink": {
+						"type": "DelimitedTextSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".txt"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "Postgre_day5",
+						"type": "DatasetReference",
+						"parameters": {
+							"schema_name": "public",
+							"table_name": "installment"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "CSV_ADLS_rholly",
+						"type": "DatasetReference",
+						"parameters": {
+							"container_name": "test",
+							"folder_name": "@concat('data/day5_2/',formatDateTime(utcnow(), 'yyyy_MM_dd'))",
+							"file_name": "installment.csv",
+							"delimiter_name": ";",
+							"row_as_header": true
+						}
+					}
+				]
+			},
+			{
+				"name": "Application",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "ADLS_Application",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "DelimitedTextSource",
+						"storeSettings": {
+							"type": "AzureBlobFSReadSettings",
+							"recursive": true,
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "DelimitedTextReadSettings"
+						}
+					},
+					"sink": {
+						"type": "SqlServerSink",
+						"writeBehavior": "upsert",
+						"upsertSettings": {
+							"useTempDB": true,
+							"keys": [
+								"SK_ID_CURR"
+							]
+						},
+						"sqlWriterUseTableLock": false
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "CSV_ADLS_rholly",
+						"type": "DatasetReference",
+						"parameters": {
+							"container_name": "test",
+							"folder_name": "@concat('data/day5_2/',formatDateTime(utcnow(), 'yyyy_MM_dd'))",
+							"file_name": "application.csv",
+							"delimiter_name": ";",
+							"row_as_header": true
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "SQL_rholly",
+						"type": "DatasetReference",
+						"parameters": {
+							"schema_name": "dbo",
+							"table_name": "application"
+						}
+					}
+				]
+			},
+			{
+				"name": "previous_app",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "ADLS_previous_app",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "DelimitedTextSource",
+						"storeSettings": {
+							"type": "AzureBlobFSReadSettings",
+							"recursive": true,
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "DelimitedTextReadSettings"
+						}
+					},
+					"sink": {
+						"type": "SqlServerSink",
+						"writeBehavior": "upsert",
+						"upsertSettings": {
+							"useTempDB": true,
+							"keys": [
+								"SK_ID_PREV"
+							]
+						},
+						"sqlWriterUseTableLock": false
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "CSV_ADLS_rholly",
+						"type": "DatasetReference",
+						"parameters": {
+							"container_name": "test",
+							"folder_name": "@concat('data/day5_2/',formatDateTime(utcnow(), 'yyyy_MM_dd'))",
+							"file_name": "previous_application.csv",
+							"delimiter_name": ";",
+							"row_as_header": true
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "SQL_rholly",
+						"type": "DatasetReference",
+						"parameters": {
+							"schema_name": "dbo",
+							"table_name": "previous_application"
+						}
+					}
+				]
+			},
+			{
+				"name": "Bureau",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "ADLS_Bureau",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "DelimitedTextSource",
+						"storeSettings": {
+							"type": "AzureBlobFSReadSettings",
+							"recursive": true,
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "DelimitedTextReadSettings"
+						}
+					},
+					"sink": {
+						"type": "SqlServerSink",
+						"writeBehavior": "upsert",
+						"upsertSettings": {
+							"useTempDB": true,
+							"keys": [
+								"SK_ID_BUREAU"
+							]
+						},
+						"sqlWriterUseTableLock": false
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "CSV_ADLS_rholly",
+						"type": "DatasetReference",
+						"parameters": {
+							"container_name": "test",
+							"folder_name": "@concat('data/day5_2/',formatDateTime(utcnow(), 'yyyy_MM_dd'))",
+							"file_name": "bureau.csv",
+							"delimiter_name": ";",
+							"row_as_header": true
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "SQL_rholly",
+						"type": "DatasetReference",
+						"parameters": {
+							"schema_name": "dbo",
+							"table_name": "bureau"
+						}
+					}
+				]
+			},
+			{
+				"name": "Installment",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "ADLS_Installment",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "DelimitedTextSource",
+						"storeSettings": {
+							"type": "AzureBlobFSReadSettings",
+							"recursive": true,
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "DelimitedTextReadSettings"
+						}
+					},
+					"sink": {
+						"type": "SqlServerSink",
+						"writeBehavior": "upsert",
+						"upsertSettings": {
+							"useTempDB": true,
+							"keys": [
+								"SK_ID_PREV",
+								"NUM_INSTALMENT_NUMBER"
+							]
+						},
+						"sqlWriterUseTableLock": false
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "CSV_ADLS_rholly",
+						"type": "DatasetReference",
+						"parameters": {
+							"container_name": "test",
+							"folder_name": "@concat('data/day5_2/',formatDateTime(utcnow(), 'yyyy_MM_dd'))",
+							"file_name": "installment.csv",
+							"delimiter_name": ";",
+							"row_as_header": true
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "SQL_rholly",
+						"type": "DatasetReference",
+						"parameters": {
+							"schema_name": "dbo",
+							"table_name": "installment"
+						}
+					}
+				]
+			},
+			{
+				"name": "dbo_loan_modelling",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "Application",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					},
+					{
+						"activity": "previous_app",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					},
+					{
+						"activity": "Bureau",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					},
+					{
+						"activity": "Installment",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SqlServerSource",
+						"sqlReaderQuery": {
+							"value": "SELECT \n    a.SK_ID_CURR AS customer_no,\n    MAX(b.AMT_CREDIT) AS high_approval_credit,\n    AVG(b.AMT_CREDIT) AS avg_approval_credit,\n    COUNT(DISTINCT b.NAME_CONTRACT_TYPE) AS count_consumer_loans,\n    COUNT(DISTINCT c.CREDIT_ACTIVE) AS count_credit_active,\n    COUNT(DISTINCT c.CREDIT_DAY_OVERDUE) AS count_credit_overdue,\n    COUNT(DISTINCT CASE WHEN d.DAYS_INSTALMENT > 30 THEN d.DAYS_INSTALMENT END) AS count_payday_30,\n    SUM(a.AMT_INCOME_TOTAL) AS income,\n    COUNT(DISTINCT a.CNT_CHILDREN) AS cnt_children\nFROM \n    dbo.application a\nLEFT JOIN \n    dbo.previous_application b ON a.SK_ID_CURR = b.SK_ID_CURR\nLEFT JOIN \n    dbo.bureau c ON a.SK_ID_CURR = c.SK_ID_CURR\nLEFT JOIN \n    dbo.installment d ON a.SK_ID_CURR = d.SK_ID_CURR\nGROUP BY \n    a.SK_ID_CURR;",
+							"type": "Expression"
+						},
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"sink": {
+						"type": "SqlServerSink",
+						"writeBehavior": "upsert",
+						"upsertSettings": {
+							"useTempDB": true,
+							"keys": [
+								"customer_no"
+							]
+						},
+						"sqlWriterUseTableLock": false
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "SQL_rholly",
+						"type": "DatasetReference",
+						"parameters": {
+							"schema_name": ".",
+							"table_name": "."
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "SQL_rholly",
+						"type": "DatasetReference",
+						"parameters": {
+							"schema_name": "dbo",
+							"table_name": "loan_modeling"
+						}
+					}
+				]
+			}
+		],
 		"folder": {
 			"name": "Day5"
 		},
