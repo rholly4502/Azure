@@ -1,30 +1,23 @@
 {
-	"name": "SQL_hanif",
+	"name": "MySQL_Practise_Day4",
 	"properties": {
 		"linkedServiceName": {
-			"referenceName": "SQLhanif",
+			"referenceName": "MYSQL_Practise_day4",
 			"type": "LinkedServiceReference"
 		},
 		"parameters": {
-			"schema_name": {
-				"type": "string"
-			},
 			"table_name": {
 				"type": "string"
 			}
 		},
 		"folder": {
-			"name": "SQL"
+			"name": "MySQL"
 		},
 		"annotations": [],
-		"type": "SqlServerTable",
+		"type": "MySqlTable",
 		"schema": [],
 		"typeProperties": {
-			"schema": {
-				"value": "@dataset().schema_name",
-				"type": "Expression"
-			},
-			"table": {
+			"tableName": {
 				"value": "@dataset().table_name",
 				"type": "Expression"
 			}
