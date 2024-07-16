@@ -5,8 +5,6 @@
 			{
 				"name": "ADLS_Application",
 				"type": "Copy",
-				"state": "Inactive",
-				"onInactiveMarkAs": "Succeeded",
 				"dependsOn": [],
 				"policy": {
 					"timeout": "0.12:00:00",
@@ -68,8 +66,6 @@
 			{
 				"name": "ADLS_previous_app",
 				"type": "Copy",
-				"state": "Inactive",
-				"onInactiveMarkAs": "Succeeded",
 				"dependsOn": [],
 				"policy": {
 					"timeout": "0.12:00:00",
@@ -131,8 +127,6 @@
 			{
 				"name": "ADLS_Bureau",
 				"type": "Copy",
-				"state": "Inactive",
-				"onInactiveMarkAs": "Succeeded",
 				"dependsOn": [],
 				"policy": {
 					"timeout": "0.12:00:00",
@@ -194,8 +188,6 @@
 			{
 				"name": "ADLS_Installment",
 				"type": "Copy",
-				"state": "Inactive",
-				"onInactiveMarkAs": "Succeeded",
 				"dependsOn": [],
 				"policy": {
 					"timeout": "0.12:00:00",
@@ -600,7 +592,7 @@
 					"source": {
 						"type": "SqlServerSource",
 						"sqlReaderQuery": {
-							"value": "SELECT \n    a.SK_ID_CURR AS customer_no,\n    MAX(b.AMT_CREDIT) AS high_approval_credit,\n    AVG(b.AMT_CREDIT) AS avg_approval_credit,\n    COUNT(DISTINCT b.NAME_CONTRACT_TYPE) AS count_consumer_loans,\n    COUNT(DISTINCT c.CREDIT_ACTIVE) AS count_credit_active,\n    COUNT(DISTINCT c.CREDIT_DAY_OVERDUE) AS count_credit_overdue,\n    COUNT(DISTINCT CASE WHEN d.DAYS_INSTALMENT > 30 THEN d.DAYS_INSTALMENT END) AS count_payday_30,\n    SUM(a.AMT_INCOME_TOTAL) AS income,\n    COUNT(DISTINCT a.CNT_CHILDREN) AS cnt_children\nFROM \n    dbo.application a\nLEFT JOIN \n    dbo.previous_application b ON a.SK_ID_CURR = b.SK_ID_CURR\nLEFT JOIN \n    dbo.bureau c ON a.SK_ID_CURR = c.SK_ID_CURR\nLEFT JOIN \n    dbo.installment d ON a.SK_ID_CURR = d.SK_ID_CURR\nGROUP BY \n    a.SK_ID_CURR;",
+							"value": "\tWITH prev_app as (\n\t\tselect SK_ID_CURR,\n\t\t\t   max(AMT_CREDIT) as high_approval_credit,\n\t\t\t   avg(AMT_CREDIT) as avg_approval_credit,\n\t\t\t   count(NAME_CONTRACT_TYPE) as count_consumer_loans\n\t\tfrom previous_application\n\t\tgroup by SK_ID_CURR\n\t), \n\tbureau_cte as (\n\t\tselect SK_ID_CURR,\n\t\t\t   count(CREDIT_ACTIVE) as count_credit_active\n\t\tfrom bureau\n\t\twhere CREDIT_ACTIVE = 'Active'\n\t\tGROUP BY SK_ID_CURR\n\t),\n\tbureau_overdue_cte as (\n\t\tselect SK_ID_CURR,\n\t\t\t   count(CREDIT_DAY_OVERDUE) as count_credit_overdue\n\t\tfrom bureau\n\t\tGROUP BY SK_ID_CURR\n\t),\n\tinstall_cte as (\n\t\tselect SK_ID_CURR,\n\t\t\t   COUNT(DAYS_INSTALMENT) as count_payday_30\n\t\tfrom installment \n\t\tWHERE DAYS_INSTALMENT>30\n\t\tGROUP BY SK_ID_CURR\n\t),\n\tapp_cte as (\n\t\tselect  sk_id_curr,\n\t\t\t\tsum(AMT_INCOME_TOTAL) AS income,\n\t\t\t\tcount(CNT_CHILDREN) as cnt_children\n\t\tfrom application\n\t\tgroup by sk_id_curr)\n\tselect app.sk_id_curr as customer_no,\n\t\t   prev_app.high_approval_credit,\n\t\t   prev_app.avg_approval_credit,\n\t\t   prev_app.count_consumer_loans,\n\t\t   COALESCE(bureau_cte.count_credit_active,0) as count_credit_active,\n\t\t   COALESCE(bureau_overdue_cte.count_credit_overdue,0) as count_credit_overdue,\n\t\t   COALESCE(install_cte.count_payday_30,0) as count_payday_30,\n\t\t   app_cte.income,\n\t\t   app_cte.cnt_children\n\tfrom application app\n\tleft join prev_app on prev_app.SK_ID_CURR = app.SK_ID_CURR\n\tleft join bureau_cte on bureau_cte.SK_ID_CURR = app.SK_ID_CURR \n\tleft join bureau_overdue_cte on bureau_overdue_cte.SK_ID_CURR = app.SK_ID_CURR \n\tleft join install_cte on install_cte.SK_ID_CURR = app.SK_ID_CURR \n\tleft join app_cte on app_cte.SK_ID_CURR = app.SK_ID_CURR",
 							"type": "Expression"
 						},
 						"queryTimeout": "02:00:00",
