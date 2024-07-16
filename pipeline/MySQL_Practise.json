@@ -19,7 +19,7 @@
 						"type": "MySqlSource",
 						"additionalColumns": [
 							{
-								"name": "ingeest_time",
+								"name": "ingest_time",
 								"value": {
 									"value": "@utcNow()",
 									"type": "Expression"
@@ -235,12 +235,12 @@
 				"typeProperties": {
 					"source": {
 						"type": "SqlServerSource",
+						"sqlReaderQuery": "SELECT * FROM dbo.customer_order",
 						"queryTimeout": "02:00:00",
 						"partitionOption": "None"
 					},
 					"sink": {
 						"type": "SqlServerSink",
-						"preCopyScript": "SELECT\n    a.customer_id,\n    CONVERT(char(7), b.order_purchase_timestamp, 126) AS [month_id],\n    DATEDIFF(day, MAX(b.order_purchase_timestamp), '2018-08-31') AS recency,\n    COUNT(b.order_id) AS frequency,\n    SUM(c.price) AS monetary\nFROM dbo.customers a\nLEFT JOIN dbo.orders b ON a.customer_id = b.customer_id\nLEFT JOIN dbo.order_items c ON b.order_id = c.order_id\nGROUP BY a.customer_id, CONVERT(char(7), b.order_purchase_timestamp, 126);",
 						"writeBehavior": "upsert",
 						"upsertSettings": {
 							"useTempDB": true,
