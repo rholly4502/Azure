@@ -326,7 +326,16 @@
 				"userProperties": [],
 				"typeProperties": {
 					"source": {
-						"type": "MySqlSource"
+						"type": "MySqlSource",
+						"additionalColumns": [
+							{
+								"name": "ingest_time",
+								"value": {
+									"value": "@utcNow()",
+									"type": "Expression"
+								}
+							}
+						]
 					},
 					"sink": {
 						"type": "DelimitedTextSink",
@@ -386,7 +395,16 @@
 				"userProperties": [],
 				"typeProperties": {
 					"source": {
-						"type": "MySqlSource"
+						"type": "MySqlSource",
+						"additionalColumns": [
+							{
+								"name": "ingest_time",
+								"value": {
+									"value": "@utcNow()",
+									"type": "Expression"
+								}
+							}
+						]
 					},
 					"sink": {
 						"type": "DelimitedTextSink",
@@ -446,7 +464,16 @@
 				"userProperties": [],
 				"typeProperties": {
 					"source": {
-						"type": "MySqlSource"
+						"type": "MySqlSource",
+						"additionalColumns": [
+							{
+								"name": "ingest_time",
+								"value": {
+									"value": "@utcNow()",
+									"type": "Expression"
+								}
+							}
+						]
 					},
 					"sink": {
 						"type": "DelimitedTextSink",
@@ -493,12 +520,6 @@
 				]
 			}
 		],
-		"parameters": {
-			"folder_name": {
-				"type": "string",
-				"defaultValue": "@concat('data/customer/',formatDateTime(utcnow(), 'yyyy_MM_dd'))"
-			}
-		},
 		"folder": {
 			"name": "MySQL_Day4"
 		},
