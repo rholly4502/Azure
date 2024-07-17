@@ -20,12 +20,9 @@
 				"timeZone": "SE Asia Standard Time",
 				"schedule": {
 					"minutes": [
-						0,
-						13
+						21
 					],
 					"hours": [
-						9,
-						13,
 						15
 					]
 				}

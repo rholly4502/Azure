@@ -1,8 +1,8 @@
 {
-	"name": "SQL_hanif",
+	"name": "Binary_SQL_Haniffajari",
 	"properties": {
 		"linkedServiceName": {
-			"referenceName": "SQLhanif",
+			"referenceName": "SQL_hanifajari",
 			"type": "LinkedServiceReference"
 		},
 		"parameters": {
@@ -14,7 +14,7 @@
 			}
 		},
 		"folder": {
-			"name": "SQL"
+			"name": "Binary"
 		},
 		"annotations": [],
 		"type": "SqlServerTable",

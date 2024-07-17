@@ -1,8 +1,8 @@
 {
-	"name": "SQL_hanif",
+	"name": "Postgre_day5",
 	"properties": {
 		"linkedServiceName": {
-			"referenceName": "SQLhanif",
+			"referenceName": "Postgre_day5",
 			"type": "LinkedServiceReference"
 		},
 		"parameters": {
@@ -14,10 +14,10 @@
 			}
 		},
 		"folder": {
-			"name": "SQL"
+			"name": "Postgre"
 		},
 		"annotations": [],
-		"type": "SqlServerTable",
+		"type": "PostgreSqlV2Table",
 		"schema": [],
 		"typeProperties": {
 			"schema": {
