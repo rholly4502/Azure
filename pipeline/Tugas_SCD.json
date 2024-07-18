@@ -37,7 +37,8 @@
 								"StartDate"
 							]
 						},
-						"sqlWriterUseTableLock": false
+						"sqlWriterUseTableLock": false,
+						"tableOption": "autoCreate"
 					},
 					"enableStaging": false,
 					"translator": {
@@ -45,62 +46,83 @@
 						"mappings": [
 							{
 								"source": {
+									"name": "EmployeeLogID",
+									"type": "String",
+									"physicalType": "nvarchar"
+								},
+								"sink": {
+									"name": "EmployeeLogID",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
 									"name": "EmployeeID",
+									"type": "String",
+									"physicalType": "nvarchar"
+								},
+								"sink": {
+									"name": "EmployeeID",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "Name",
+									"type": "String",
+									"physicalType": "nvarchar"
+								},
+								"sink": {
+									"name": "Name",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "Position",
+									"type": "String",
+									"physicalType": "nvarchar"
+								},
+								"sink": {
+									"name": "Position",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "StartDate",
+									"type": "String",
+									"physicalType": "nvarchar"
+								},
+								"sink": {
+									"name": "StartDate",
+									"type": "DateTime",
+									"physicalType": "date"
+								}
+							},
+							{
+								"source": {
+									"name": "EndDate",
+									"type": "String",
+									"physicalType": "nvarchar"
+								},
+								"sink": {
+									"name": "EndDate",
+									"type": "DateTime",
+									"physicalType": "date"
+								}
+							},
+							{
+								"source": {
+									"name": "isLatest",
 									"type": "Int32",
 									"physicalType": "int"
 								},
 								"sink": {
-									"name": "EmployeeID",
-									"type": "String",
-									"physicalType": "nvarchar"
-								}
-							},
-							{
-								"source": {
-									"name": "Name",
-									"type": "String",
-									"physicalType": "varchar"
-								},
-								"sink": {
-									"name": "Name",
-									"type": "String",
-									"physicalType": "nvarchar"
-								}
-							},
-							{
-								"source": {
-									"name": "Position",
-									"type": "String",
-									"physicalType": "varchar"
-								},
-								"sink": {
-									"name": "Position",
-									"type": "String",
-									"physicalType": "nvarchar"
-								}
-							},
-							{
-								"source": {
-									"name": "StartDate",
-									"type": "DateTime",
-									"physicalType": "datetime"
-								},
-								"sink": {
-									"name": "StartDate",
-									"type": "DateTime",
-									"physicalType": "date"
-								}
-							},
-							{
-								"source": {
-									"name": "EndDate",
-									"type": "DateTime",
-									"physicalType": "datetime"
-								},
-								"sink": {
-									"name": "EndDate",
-									"type": "DateTime",
-									"physicalType": "date"
+									"name": "isLatest"
 								}
 							}
 						],
@@ -127,7 +149,7 @@
 						"type": "DatasetReference",
 						"parameters": {
 							"schema_name": "dbo",
-							"table_name": "user"
+							"table_name": "user_log"
 						}
 					}
 				]
@@ -289,13 +311,105 @@
 					"source": {
 						"type": "SqlServerSource",
 						"sqlReaderQuery": {
-							"value": "WITH NumberedEmployees AS (\n    SELECT *,\n           ROW_NUMBER() OVER (PARTITION BY EmployeeID ORDER BY EndDate DESC) AS row_num\n    FROM Employee\n),\nFirstPosition AS (\n    SELECT EmployeeID, Position AS PreviousPosition\n    FROM (\n        SELECT EmployeeID, Position,\n               ROW_NUMBER() OVER (PARTITION BY EmployeeID ORDER BY EndDate ASC) AS row_num\n        FROM Employee\n    ) sub\n    WHERE sub.row_num = 1\n)\nSELECT e.EmployeeLogID,\n    e.EmployeeID,\n    e.Name,\n    e.Position,\n    fp.PreviousPosition,\n    e.StartDate,\n    e.EndDate\nFROM NumberedEmployees e\nLEFT JOIN FirstPosition fp ON e.EmployeeID = fp.EmployeeID\nWHERE e.row_num = 1;\n",
+							"value": "WITH NumberedEmployees AS (\n    SELECT *,\n           ROW_NUMBER() OVER (PARTITION BY EmployeeID ORDER BY EndDate DESC) AS row_num\n    FROM Employee\n),\nFirstPosition AS (\n    SELECT EmployeeID, Position AS PreviousPosition, StartDate\n    FROM (\n        SELECT EmployeeID, Position, StartDate,\n               ROW_NUMBER() OVER (PARTITION BY EmployeeID ORDER BY EndDate ASC) AS row_num\n        FROM Employee\n    ) sub\n    WHERE sub.row_num = 1\n)\nSELECT e.EmployeeLogID,\n    e.EmployeeID,\n    e.Name,\n    e.Position,\n    fp.PreviousPosition,\n    fp.StartDate,\n    e.EndDate\nFROM NumberedEmployees e\nLEFT JOIN FirstPosition fp ON e.EmployeeID = fp.EmployeeID\nWHERE e.row_num = 1;",
 							"type": "Expression"
 						},
 						"queryTimeout": "02:00:00",
 						"partitionOption": "None"
 					},
-					"enableStaging": false
+					"sink": {
+						"type": "SqlServerSink",
+						"writeBehavior": "upsert",
+						"upsertSettings": {
+							"useTempDB": true,
+							"keys": [
+								"EmployeeID"
+							]
+						},
+						"sqlWriterUseTableLock": false,
+						"tableOption": "autoCreate"
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "EmployeeID",
+									"type": "String",
+									"physicalType": "nvarchar"
+								},
+								"sink": {
+									"name": "EmployeeID",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "Name",
+									"type": "String",
+									"physicalType": "nvarchar"
+								},
+								"sink": {
+									"name": "Name",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "Position",
+									"type": "String",
+									"physicalType": "nvarchar"
+								},
+								"sink": {
+									"name": "Position",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "PreviousPosition",
+									"type": "String",
+									"physicalType": "nvarchar"
+								},
+								"sink": {
+									"name": "PreviousPosition"
+								}
+							},
+							{
+								"source": {
+									"name": "StartDate",
+									"type": "String",
+									"physicalType": "nvarchar"
+								},
+								"sink": {
+									"name": "StartDate",
+									"type": "DateTime",
+									"physicalType": "date"
+								}
+							},
+							{
+								"source": {
+									"name": "EndDate",
+									"type": "String",
+									"physicalType": "nvarchar"
+								},
+								"sink": {
+									"name": "EndDate",
+									"type": "DateTime",
+									"physicalType": "date"
+								}
+							}
+						],
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
 				},
 				"inputs": [
 					{
@@ -304,6 +418,16 @@
 						"parameters": {
 							"schema_name": "dbo",
 							"table_name": "Employee"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "SQL_rholly",
+						"type": "DatasetReference",
+						"parameters": {
+							"schema_name": "dbo",
+							"table_name": "user_historical"
 						}
 					}
 				]
