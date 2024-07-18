@@ -5,8 +5,6 @@
 			{
 				"name": "SCD Type 2",
 				"type": "Copy",
-				"state": "Inactive",
-				"onInactiveMarkAs": "Succeeded",
 				"dependsOn": [],
 				"policy": {
 					"timeout": "0.12:00:00",
@@ -19,6 +17,10 @@
 				"typeProperties": {
 					"source": {
 						"type": "SqlServerSource",
+						"sqlReaderQuery": {
+							"value": "WITH NumberedEmployees AS (\n    SELECT *,\n           ROW_NUMBER() OVER (PARTITION BY EmployeeID ORDER BY EndDate DESC) AS row_num,\n           CASE \n                WHEN \n                \n            as isLatest \n    FROM Employee\n)\nSELECT *\nFROM NumberedEmployees\nWHERE row_num = 1;",
+							"type": "Expression"
+						},
 						"queryTimeout": "02:00:00",
 						"partitionOption": "None"
 					},
@@ -28,9 +30,9 @@
 						"upsertSettings": {
 							"useTempDB": true,
 							"keys": [
+								"EmployeeID",
 								"Position",
-								"StartDate",
-								"EndDate"
+								"StartDate"
 							]
 						},
 						"sqlWriterUseTableLock": false
@@ -131,6 +133,8 @@
 			{
 				"name": "SCD Type 1",
 				"type": "Copy",
+				"state": "Inactive",
+				"onInactiveMarkAs": "Succeeded",
 				"dependsOn": [],
 				"policy": {
 					"timeout": "0.12:00:00",
@@ -143,7 +147,10 @@
 				"typeProperties": {
 					"source": {
 						"type": "SqlServerSource",
-						"sqlReaderQuery": "SELECT * FROM Employee\nGROUP BY EmployeeID\nORDER BY end",
+						"sqlReaderQuery": {
+							"value": "WITH NumberedEmployees AS (\n    SELECT *,\n           ROW_NUMBER() OVER (PARTITION BY EmployeeID ORDER BY EndDate DESC) AS row_num\n    FROM Employee\n)\nSELECT *\nFROM NumberedEmployees\nWHERE row_num = 1;",
+							"type": "Expression"
+						},
 						"queryTimeout": "02:00:00",
 						"partitionOption": "None"
 					},
