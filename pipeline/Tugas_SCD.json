@@ -5,8 +5,6 @@
 			{
 				"name": "SCD Type 2",
 				"type": "Copy",
-				"state": "Inactive",
-				"onInactiveMarkAs": "Succeeded",
 				"dependsOn": [],
 				"policy": {
 					"timeout": "0.12:00:00",
@@ -32,9 +30,7 @@
 						"upsertSettings": {
 							"useTempDB": true,
 							"keys": [
-								"EmployeeID",
-								"Position",
-								"StartDate"
+								"EmployeeID"
 							]
 						},
 						"sqlWriterUseTableLock": false,
@@ -285,20 +281,9 @@
 			{
 				"name": "SCD Type 3",
 				"type": "Copy",
-				"dependsOn": [
-					{
-						"activity": "SCD Type 2",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					},
-					{
-						"activity": "SCD Type 1",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
+				"state": "Inactive",
+				"onInactiveMarkAs": "Succeeded",
+				"dependsOn": [],
 				"policy": {
 					"timeout": "0.12:00:00",
 					"retry": 0,
