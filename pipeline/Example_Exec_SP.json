@@ -21,7 +21,24 @@
 						"queryTimeout": "02:00:00",
 						"partitionOption": "None"
 					},
-					"enableStaging": false
+					"sink": {
+						"type": "ParquetSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "ParquetWriteSettings"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
 				},
 				"inputs": [
 					{
@@ -30,6 +47,16 @@
 						"parameters": {
 							"schema_name": ".",
 							"table_name": "."
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "PARQUET_ADLS_rholly",
+						"type": "DatasetReference",
+						"parameters": {
+							"folder_name": "fact",
+							"file_name": "employee.snappy.parquet"
 						}
 					}
 				]
