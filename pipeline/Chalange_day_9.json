@@ -1,0 +1,162 @@
+{
+	"name": "Chalange_day_9",
+	"properties": {
+		"activities": [
+			{
+				"name": "MongoDB",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "MongoDbV2Source",
+						"batchSize": 100
+					},
+					"sink": {
+						"type": "JsonSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "JsonWriteSettings"
+						}
+					},
+					"enableStaging": false
+				},
+				"inputs": [
+					{
+						"referenceName": "MongoDb_chalange_day_9",
+						"type": "DatasetReference",
+						"parameters": {
+							"colection_name": "documents"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "JSON_ADLS_rholly",
+						"type": "DatasetReference",
+						"parameters": {
+							"container_name": "test",
+							"folder_name": "chalange_day_9",
+							"file_name": "mongodb.json"
+						}
+					}
+				]
+			},
+			{
+				"name": "Notebook1",
+				"type": "DatabricksNotebook",
+				"dependsOn": [
+					{
+						"activity": "MongoDB",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"notebookPath": "/Users/kelompok_4@chococwefdit.onmicrosoft.com/Rholly/day_9/soal_1"
+				},
+				"linkedServiceName": {
+					"referenceName": "DB_Kelompok_4",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "Synapse",
+				"type": "Copy",
+				"state": "Inactive",
+				"onInactiveMarkAs": "Succeeded",
+				"dependsOn": [
+					{
+						"activity": "Notebook1",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "ParquetSource",
+						"storeSettings": {
+							"type": "AzureBlobFSReadSettings",
+							"recursive": true,
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "ParquetReadSettings"
+						}
+					},
+					"sink": {
+						"type": "SqlServerSink",
+						"writeBehavior": "upsert",
+						"upsertSettings": {
+							"useTempDB": true,
+							"keys": [
+								"id"
+							]
+						},
+						"sqlWriterUseTableLock": false
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "PARQUET_ADLS_rholly",
+						"type": "DatasetReference",
+						"parameters": {
+							"folder_name": "chalange_day_9/output/output1/",
+							"file_name": "part-00000-tid-2310508715138149112-45e08231-f22d-4439-9095-9ff3f9d92b9d-45-1-c000.snappy.parquet"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "SQL_Synapse_celerates",
+						"type": "DatasetReference",
+						"parameters": {
+							"schema_name": "rholly",
+							"table_name": "mongodb1"
+						}
+					}
+				]
+			}
+		],
+		"folder": {
+			"name": "Chalange_day_9"
+		},
+		"annotations": []
+	}
+}
