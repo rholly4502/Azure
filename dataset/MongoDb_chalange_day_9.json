@@ -1,0 +1,26 @@
+{
+	"name": "MongoDb_chalange_day_9",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "MongoDB_chalange_day_9",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"colection_name": {
+				"type": "string"
+			}
+		},
+		"folder": {
+			"name": "MongoDb"
+		},
+		"annotations": [],
+		"type": "MongoDbV2Collection",
+		"schema": [],
+		"typeProperties": {
+			"collection": {
+				"value": "@dataset().colection_name",
+				"type": "Expression"
+			}
+		}
+	}
+}
