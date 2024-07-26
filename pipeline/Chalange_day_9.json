@@ -79,8 +79,8 @@
 				}
 			},
 			{
-				"name": "Synapse",
-				"type": "Copy",
+				"name": "Stored procedure1",
+				"type": "SqlServerStoredProcedure",
 				"state": "Inactive",
 				"onInactiveMarkAs": "Succeeded",
 				"dependsOn": [
@@ -99,59 +99,10 @@
 					"secureInput": false
 				},
 				"userProperties": [],
-				"typeProperties": {
-					"source": {
-						"type": "ParquetSource",
-						"storeSettings": {
-							"type": "AzureBlobFSReadSettings",
-							"recursive": true,
-							"enablePartitionDiscovery": false
-						},
-						"formatSettings": {
-							"type": "ParquetReadSettings"
-						}
-					},
-					"sink": {
-						"type": "SqlServerSink",
-						"writeBehavior": "upsert",
-						"upsertSettings": {
-							"useTempDB": true,
-							"keys": [
-								"id"
-							]
-						},
-						"sqlWriterUseTableLock": false
-					},
-					"enableStaging": false,
-					"translator": {
-						"type": "TabularTranslator",
-						"typeConversion": true,
-						"typeConversionSettings": {
-							"allowDataTruncation": true,
-							"treatBooleanAsNumber": false
-						}
-					}
-				},
-				"inputs": [
-					{
-						"referenceName": "PARQUET_ADLS_rholly",
-						"type": "DatasetReference",
-						"parameters": {
-							"folder_name": "chalange_day_9/output/output1/",
-							"file_name": "part-00000-tid-2310508715138149112-45e08231-f22d-4439-9095-9ff3f9d92b9d-45-1-c000.snappy.parquet"
-						}
-					}
-				],
-				"outputs": [
-					{
-						"referenceName": "SQL_Synapse_celerates",
-						"type": "DatasetReference",
-						"parameters": {
-							"schema_name": "rholly",
-							"table_name": "mongodb1"
-						}
-					}
-				]
+				"linkedServiceName": {
+					"referenceName": "AzureSynapseAnalytics",
+					"type": "LinkedServiceReference"
+				}
 			}
 		],
 		"folder": {
