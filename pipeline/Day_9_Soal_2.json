@@ -1,5 +1,5 @@
 {
-	"name": "pipeline1",
+	"name": "Day_9_Soal_2",
 	"properties": {
 		"activities": [
 			{
@@ -27,14 +27,12 @@
 						}
 					},
 					"sink": {
-						"type": "DelimitedTextSink",
+						"type": "ParquetSink",
 						"storeSettings": {
 							"type": "AzureBlobFSWriteSettings"
 						},
 						"formatSettings": {
-							"type": "DelimitedTextWriteSettings",
-							"quoteAllText": true,
-							"fileExtension": ".txt"
+							"type": "ParquetWriteSettings"
 						}
 					},
 					"enableStaging": false,
@@ -55,17 +53,41 @@
 				],
 				"outputs": [
 					{
-						"referenceName": "CSV_ADLS_rholly",
+						"referenceName": "PARQUET_ADLS_rholly",
 						"type": "DatasetReference",
 						"parameters": {
-							"container_name": "test",
 							"folder_name": "http_ingest",
-							"file_name": "yellow_taxi.parquet",
-							"delimiter_name": ",",
-							"row_as_header": true
+							"file_name": "Yellow_taxi_january.parquet"
 						}
 					}
 				]
+			},
+			{
+				"name": "Notebook1",
+				"type": "DatabricksNotebook",
+				"dependsOn": [
+					{
+						"activity": "Yellow Taxi",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"notebookPath": "/Users/kelompok_4@chococwefdit.onmicrosoft.com/Rholly/day_9/Soal_2_Fix"
+				},
+				"linkedServiceName": {
+					"referenceName": "DB_Kelompok_4",
+					"type": "LinkedServiceReference"
+				}
 			}
 		],
 		"annotations": []
