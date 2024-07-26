@@ -57,7 +57,7 @@
 						"type": "DatasetReference",
 						"parameters": {
 							"folder_name": "http_ingest",
-							"file_name": "Yellow_taxi_january.parquet"
+							"file_name": "yellow_tripdata_2024-01.parquet"
 						}
 					}
 				]
