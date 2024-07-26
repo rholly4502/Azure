@@ -1,0 +1,21 @@
+{
+	"name": "Paerquet_Yellowtaxi",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "YellowTaxi_January",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "Http"
+		},
+		"annotations": [],
+		"type": "Parquet",
+		"typeProperties": {
+			"location": {
+				"type": "HttpServerLocation"
+			},
+			"compressionCodec": "snappy"
+		},
+		"schema": []
+	}
+}
